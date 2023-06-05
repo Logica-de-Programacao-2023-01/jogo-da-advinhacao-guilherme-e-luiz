@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func main() {
+	var numerodigitado, tentativas int
+	var listadenumerosdigitados []int
+	var resposta string
+	rand.Seed(time.Now().UnixNano())
+	for resposta != "não" {
+		numeroaleatorio := rand.Intn(100) + 1
+		fmt.Println("Bem vindo ao jogo da advinhação!")
+		fmt.Print("Digite um número de 1 a 100: ")
+		fmt.Scan(&numerodigitado)
+		tentativas = 1
+		for numerodigitado != numeroaleatorio {
+			if numerodigitado < numeroaleatorio {
+				fmt.Printf("O número é maior que %d\n", numerodigitado)
+				fmt.Print("Digite um número de 1 a 100: ")
+				fmt.Scan(&numerodigitado)
+				tentativas++
+			} else if numerodigitado > numeroaleatorio {
+				fmt.Printf("O número é menor que %d\n", numerodigitado)
+				fmt.Print("Digite um número de 1 a 100: ")
+				fmt.Scan(&numerodigitado)
+
+				tentativas++
+			}
+		}
+		listadenumerosdigitados = append(listadenumerosdigitados, tentativas)
+		fmt.Println("Parabéns você acertou!")
+		fmt.Printf("Você utilizou %d tentativas\n", tentativas)
+		fmt.Print("Deseja jogar denovo?(sim/não): ")
+		fmt.Scan(&resposta)
+	}
+	for x := 0; x < len(listadenumerosdigitados); x++ {
+		fmt.Printf("\nNa jogada %d você utilizou %d tentativas", x+1, listadenumerosdigitados[x])
+	}
+}
